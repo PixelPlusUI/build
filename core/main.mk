@@ -414,6 +414,8 @@ ifndef is_sdk_build
   # To speedup startup of non-preopted builds, don't verify or compile the boot image.
   ADDITIONAL_SYSTEM_PROPERTIES += dalvik.vm.image-dex2oat-filter=extract
 endif
+# Enable Dalvik lock contention logging.
+ADDITIONAL_SYSTEM_PROPERTIES += dalvik.vm.lockprof.threshold=500
 endif
 
 ## asan ##
