@@ -1372,18 +1372,23 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   android_version = target_info.GetBuildProp("ro.build.version.release")
   build_id = target_info.GetBuildProp("ro.build.id")
-  build_date = target_info.GetBuildProp("org.pixelexperience.build_date")
+  build_date = target_info.GetBuildProp("org.pixelplusui.build_date")
   security_patch = target_info.GetBuildProp("ro.build.version.security_patch")
-  device = target_info.GetBuildProp("org.pixelexperience.device")
+  device = target_info.GetBuildProp("org.pixelplusui.device")
 
   script.Print("----------------------------------------------");
-  script.Print("              Pixel Experience");
-  script.Print("               by jhenrique09");
+  script.Print("          ______  ______  __    __  ___      ");
+  script.Print("         / __  / / __  / / /   / / /  /      ");
+  script.Print("        / /_/ / / /_/ / / /   / / /  /       ");
+  script.Print("       /  ___/ /  ___/ / /   / / /  /        ");
+  script.Print("      /  /    /  /    / /___/ / /  /         ");
+  script.Print("     /__/    /__/     \______/ /__/          ");
   script.Print("----------------------------------------------");
-  script.Print(" Android version: %s"%(android_version));
-  script.Print(" Build id: %s"%(build_id));
-  script.Print(" Build date: %s"%(build_date));
-  script.Print(" Security patch: %s"%(security_patch));
+  script.Print(" ROM by: @kostyajrz");
+  script.Print(" Android Version: %s"%(android_version));
+  script.Print(" Build ID: %s"%(build_id));
+  script.Print(" Build Time: %s"%(build_date));
+  script.Print(" Security Patch: %s"%(security_patch));
   script.Print(" Device: %s"%(device));
   script.Print("----------------------------------------------");
   device_specific.FullOTA_InstallBegin()
