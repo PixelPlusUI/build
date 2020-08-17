@@ -250,16 +250,16 @@ class EdifyGenerator(object):
   def PrintPPUIBanner(self, android_version, build_id, build_date,
                                   security_patch, device, prev_build_id=None,
                                   prev_build_date=None, prev_security_patch=None):
-  self.Print("----------------------------------------------");
-  self.Print("          ______  ______  __    __  ___      ");
-  self.Print("         / __  / / __  / / /   / / /  /      ");
-  self.Print("        / /_/ / / /_/ / / /   / / /  /       ");
-  self.Print("       /  ___/ /  ___/ / /   / / /  /        ");
-  self.Print("      /  /    /  /    / /___/ / /  /         ");
-  self.Print("     /__/    /__/     \______/ /__/          ");
-  self.Print("----------------------------------------------");
-  self.Print(" ROM by: @kostyajrz");
-  self.Print(" Android Version: %s"%(android_version));
+    self.Print("----------------------------------------------");
+    self.Print("          ______  ______  __    __  ___      ");
+    self.Print("         / __  / / __  / / /   / / /  /      ");
+    self.Print("        / /_/ / / /_/ / / /   / / /  /       ");
+    self.Print("       /  ___/ /  ___/ / /   / / /  /        ");
+    self.Print("      /  /    /  /    / /___/ / /  /         ");
+    self.Print("     /__/    /__/     \______/ /__/          ");
+    self.Print("----------------------------------------------");
+    self.Print(" ROM by: @kostyajrz");
+    self.Print(" Android Version: %s"%(android_version));
     if prev_build_id != None and prev_build_id != build_id:
       self.Print(" Build ID: %s -> %s"%(prev_build_id, build_id))
     else:
@@ -272,8 +272,8 @@ class EdifyGenerator(object):
       self.Print(" Security Patch: %s -> %s"%(prev_security_patch, security_patch))
     else:
       self.Print(" Security Patch: %s"%(security_patch))
-  self.Print(" Device: %s"%(device));
-  self.Print("----------------------------------------------");
+    self.Print(" Device: %s"%(device));
+    self.Print("----------------------------------------------");
 
   def TunePartition(self, partition, *options):
     fstab = self.fstab
@@ -431,10 +431,6 @@ class EdifyGenerator(object):
     self.script.append(
         'symlink_chown("%s", "%s", %d, %d);' % (link_path, target_path, uid, gid))
 
-  def PatchFile(self, target_path, zip_file, old_hash):
-    self.script.append(
-        'patch("%s", "%s", "%s");' % (target_path, zip_file, old_hash))
-
   def DeleteFile(self, target_path):
     self.script.append(
         'unlink("%s");' % (target_path))
@@ -454,11 +450,6 @@ class EdifyGenerator(object):
     cmd += ');'
     self.script.append(cmd)
 
-  def FileCheck(self, filename, sha1, error_msg):
-    """Check that the given file has one of the
-    given sha1 hashes."""
-    self.script.append('assert(sha1_check(read_file("%s"), "%s") || abort("%s"));' % (filename, sha1, error_msg))
-
   def RunSetupBusybox(self):
     self.script.append('run_program("/sbin/sh", "/tmp/install/bin/setup_busybox.sh");')
 
@@ -468,16 +459,7 @@ class EdifyGenerator(object):
   def RunUmountAll(self):
     self.script.append('run_program("/sbin/sh", "/tmp/install/bin/umount_all.sh");')
 
-  def FileCheck(self, filename, sha1, error_msg):
-    """Check that the given file has one of the
-    given sha1 hashes."""
-    self.script.append('assert(sha1_check(read_file("%s"), "%s") || abort("%s"));' % (filename, sha1, error_msg))
-
   def AddPPUIVersionAssertion(self, error_msg, source_version):
     prop_path = "/system_root/system/build.prop"
     source_version_prop = "org.pixelplusui.version.display"
     self.script.append('assert(try_file_getprop("%s", "%s") == "%s" || abort("%s"));' % (prop_path, source_version_prop, source_version, error_msg))
-
-  def AddPPUIPatchAssertion(self, error_msg, files_to_patch):
-    for file, sha1_hash in files_to_patch:
-      self.FileCheck(file, sha1_hash, error_msg)
