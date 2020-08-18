@@ -247,8 +247,9 @@ class EdifyGenerator(object):
     """Log a message to the screen (if the logs are visible)."""
     self.script.append('ui_print("%s");' % (message,))
 
-  def PrintPixelExperienceBanner(self, android_version, build_id, build_date,
-                                  security_patch, device):
+  def PrintPPUIBanner(self, android_version, build_id, build_date,
+                                  security_patch, device, prev_build_id=None,
+                                  prev_build_date=None, prev_security_patch=None):
   self.Print("----------------------------------------------");
   self.Print("          ______  ______  __    __  ___      ");
   self.Print("         / __  / / __  / / /   / / /  /      ");
@@ -259,9 +260,18 @@ class EdifyGenerator(object):
   self.Print("----------------------------------------------");
   self.Print(" ROM by: @kostyajrz");
   self.Print(" Android Version: %s"%(android_version));
-  self.Print(" Build ID: %s"%(build_id));
-  self.Print(" Build Time: %s"%(build_date));
-  self.Print(" Security Patch: %s"%(security_patch));
+    if prev_build_id != None and prev_build_id != build_id:
+      self.Print(" Build ID: %s -> %s"%(prev_build_id, build_id))
+    else:
+      self.Print(" Build ID: %s"%(build_id))
+    if prev_build_date != None and prev_build_date != build_date:
+      self.Print(" Build Time: %s -> %s"%(prev_build_date, build_date))
+    else:
+      self.Print(" Build Time: %s"%(build_date))
+    if prev_security_patch != None and prev_security_patch != security_patch:
+      self.Print(" Security Patch: %s -> %s"%(prev_security_patch, security_patch))
+    else:
+      self.Print(" Security Patch: %s"%(security_patch))
   self.Print(" Device: %s"%(device));
   self.Print("----------------------------------------------");
 
@@ -446,3 +456,8 @@ class EdifyGenerator(object):
     self.script.append(
         'chmeta("%s", %d, %d, %o, "selabel", "%s", "capabilities", 0x%x);' %
             (target_path, uid, gid, mode, selabel, capabilities))
+
+  def AddPPUIVersionAssertion(self, error_msg, source_version):
+    prop_path = "/system/build.prop"
+    source_version_prop = "org.pixelplusui.version.display"
+    self.script.append('assert(file_getprop("%s", "%s") == "%s" || abort("%s"));' % (prop_path, source_version_prop, source_version, error_msg))
