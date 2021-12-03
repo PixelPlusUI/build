@@ -264,20 +264,20 @@ class EdifyGenerator(object):
     """Log a message to the screen (if the logs are visible)."""
     self.script.append('ui_print("%s");' % (message,))
 
-  def PrintPixelExperienceBanner(self, is_plus, android_version, build_id, build_date,
-                                  security_patch, device):
+  def PrintPixelPlusUIBanner(self, android_version, build_id, build_date,
+                                  security_patch, device):  
     self.Print("----------------------------------------------")
-    if is_plus:
-      self.Print("        PixelExperience (Plus edition)")
-      self.Print("                by jhenrique09")
-    else:
-      self.Print("              PixelExperience")
-      self.Print("              by jhenrique09")
+    self.Print("          _____  _____  _    _ _____          ");
+    self.Print("         |  __ \|  __ \| |  | |_   _|         ");
+    self.Print("         | |__) | |__) | |  | | | |           ");
+    self.Print("         |  ___/|  ___/| |  | | | |           ");
+    self.Print("         | |    | |    | |__| |_| |_          ");
+    self.Print("         |_|    |_|     \____/|_____|         ");
     self.Print("----------------------------------------------")
-    self.Print(" Android version: %s"%(android_version))
-    self.Print(" Build id: %s"%(build_id))
-    self.Print(" Build date: %s"%(build_date))
-    self.Print(" Security patch: %s"%(security_patch))
+    self.Print(" Android Version: %s"%(android_version));
+    self.Print(" Build ID: %s"%(build_id));
+    self.Print(" Build Time: %s"%(build_date));
+    self.Print(" Security Patch: %s"%(security_patch));
     self.Print(" Device: %s"%(device))
     self.Print("----------------------------------------------")
 
