@@ -274,7 +274,7 @@ class EdifyGenerator(object):
     self.Print("         | |    | |    | |__| |_| |_          ");
     self.Print("         |_|    |_|     \____/|_____|         ");
     self.Print("----------------------------------------------")
-    self.Print(" Android Version: %s"%(android_version));
+    self.Print(" Android Version: 12.1");
     self.Print(" Build ID: %s"%(build_id));
     self.Print(" Build Time: %s"%(build_date));
     self.Print(" Security Patch: %s"%(security_patch));
